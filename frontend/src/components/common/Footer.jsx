@@ -1,6 +1,27 @@
 import { Link } from 'react-router-dom';
 import LogoWhite from '../../assets/images/logo-white.png'
+import { useEffect, useState } from 'react';
+import { apiUrl } from './Http';
 const Footer = () => {
+     const [categories, setCategories] = useState([]);
+     const fetchCategories = async() => {
+          const res = await fetch(`${apiUrl}/category-products`,{
+               method : 'GET',
+               headers : {
+               'Content-type'  : 'application/json',
+               'Accept'        : 'application/json',
+               }
+          })
+          const result = await res.json();
+          if(result.status == 200){
+               setCategories(result.data);
+          }else{
+               console.log("Something went wrong.");
+          }
+     }
+     useEffect(() => {
+          fetchCategories();
+     },[]);
   return (
     <>
           <footer className='py-5 text-white'>
@@ -13,9 +34,15 @@ const Footer = () => {
                     <div className="col-lg-3 col-md-6 col-6 pb-4">
                          <h2 className="mb-3">Categories</h2>
                          <ul>
-                              <li><a href="#">Men</a></li>
-                              <li><a href="#">Women</a></li>
-                              <li><a href="#">Kids</a></li>
+                              {
+                                   categories && categories.map(category => {
+                                        return(
+                                             <li key={category.id}>
+                                                  <Link to={`/shop`}>{category.name}</Link>
+                                             </li>
+                                        )
+                                   })
+                              }
                          </ul>
                     </div>
                     <div className="col-lg-3 col-md-6 col-6 pb-4">

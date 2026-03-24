@@ -94,7 +94,7 @@ const Edit = () => {
                                                        placeholder="Brand name"  />
 
                                                        {errors.name && (
-                                                            <p className="invalid-feedback">{errors.name.message}</p>
+                                                            <p className="invalid-feedback">{errors.name?.message}</p>
                                                        )} 
                                              </div>
                                              <div className="form-group mb-3">
@@ -107,7 +107,7 @@ const Edit = () => {
                                                        <option value="1">Inactive</option>
                                                   </select>
                                                   {errors.status && (
-                                                       <p className="invalid-feedback">{errors.status.message}</p>
+                                                       <p className="invalid-feedback">{errors.status?.message}</p>
                                                   )} 
                                              </div>
                                              <div className="mb-3">

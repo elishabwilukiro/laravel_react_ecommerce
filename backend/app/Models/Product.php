@@ -31,6 +31,14 @@ class Product extends Model
     {
         return $this->belongsTo(Brand::class,'brand_id','id');
     }
+    public function product_images()
+    {
+        return $this->hasMany(ProductImage::class, 'product_id','id');
+    }
+    public function product_sizes()
+    {
+        return $this->hasMany(ProductSize::class,'product_id','id');
+    }
 
 
 
@@ -41,7 +49,7 @@ class Product extends Model
         {
             return "";
         }
-
-        return asset('/upload/products/small/' .$this->image);
+        
+        return asset('/uploads/products/small/' .$this->image);
     }
 }

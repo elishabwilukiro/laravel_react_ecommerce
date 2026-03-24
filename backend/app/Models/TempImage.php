@@ -9,4 +9,15 @@ class TempImage extends Model
     protected $table = 'temp_images';
     protected $primaryKey = 'id';
     protected $fillable = ['name','status','archive'];
+
+    protected $appends = ['image_url'];
+    public function getImageUrlAttribute()
+    {
+        if($this->name == "")
+        {
+            return "";
+        }
+        return asset('/uploads/temp/thumb/' .$this->name);
+    }
 }
+

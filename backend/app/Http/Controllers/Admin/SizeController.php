@@ -13,7 +13,10 @@ class SizeController extends Controller
      */
     public function index()
     {
-        $size = Size::where('archive','0')->orderBy('name','ASC');
+        $size = Size::query()
+            ->where('archive','0')
+            ->orderBy('created_at','ASC')
+            ->get();
         return response()->json([
             'status' => 200,
             'data'   => $size,

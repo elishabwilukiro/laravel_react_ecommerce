@@ -3,7 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Brand;
+use App\Models\Category;
+use App\Models\Size;
 use App\Models\Product;
+use App\Models\ProductImage;
+use App\Models\ProductSize;
 use App\Models\TempImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -46,8 +51,11 @@ class ProductController extends Controller
             'price' => 'required|numeric',
             'brand_id' => 'nullable|exists:brands,id',
             'category_id' => 'required|exists:categories,id',
+            'qty' => 'required|numeric',
             'sku' => 'required|string|max:100|unique:products,sku',
+            'short_description' => 'nullable|string',
             'description' => 'nullable|string',
+            'compare_price' => 'nullable|numeric',
             'barcode' => 'required|string',
             'is_featured' => 'required|in:no,yes',
             'status' => 'required|in:0,1',
@@ -67,17 +75,29 @@ class ProductController extends Controller
             'price' => $request->price,
             'brand_id' => $request->brand_id,
             'category_id' => $request->category_id,
+            'short_description' => $request->short_description,
             'description' => $request->description,
+            'compare_price' => $request->compare_price,
             'is_featured' => $request->is_featured,
             'barcode' => $request->barcode,
+            'qty' => $request->qty,
             'sku' => $request->sku,
             'status' => $request->status,
         ]); 
 
+        // Save product sizes
+        if(!empty($request->sizes)){
+            foreach($request->sizes as $sizeId){
+                ProductSize::create([
+                    'product_id' => $product->id,
+                    'size_id' => $sizeId
+                ]);
+            }
+        }
+
         // Save Product Images
         $manager = new ImageManager(Driver::class);
         if(!empty($request->gallery)){
-            dd($request->gallery);
             foreach($request->gallery as $key => $tempImageId){
 
                 $tempImage = TempImage::find($tempImageId);
@@ -98,6 +118,13 @@ class ProductController extends Controller
                 $img->coverDown(400,460);
                 $img->save(public_path('uploads/products/small/' . $imageName));    
 
+                // Product image
+                ProductImage::create([
+                    'image' => $imageName,
+                    'product_id' => $product->id  
+                ]);
+
+                // first image as main product image
                 if($key == 0){
                     $product->image = $imageName;
                     $product->save();

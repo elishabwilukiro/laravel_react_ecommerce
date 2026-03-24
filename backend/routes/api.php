@@ -9,12 +9,18 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SizeController;
 use App\Http\Controllers\Admin\TempImageController;
+use App\Http\Controllers\Front\AccountController;
+use App\Http\Controllers\Front\ProductController as FrontProductController;
 
-Route::post('/admin/login', [AuthController::class, 'Authenticate']);
-
-// Route::get('/user', function (Request $request) {
-//     return $request->user();
-// })->middleware('auth:sanctum');
+Route::post('admin/login', [AuthController::class, 'Authenticate']);
+Route::get('latest-products',[FrontProductController::class,'latestProducts']);
+Route::get('featured-products',[FrontProductController::class,'featuredProducts']);
+Route::get('brand-products',[FrontProductController::class,'getBrand']);
+Route::get('category-products',[FrontProductController::class,'getCategory']);
+Route::get('shop-products',[FrontProductController::class,'shopProducts']);
+Route::get('shop-product/{id}',[FrontProductController::class,'shopProduct']);
+Route::post('register', [AccountController::class,'register']);
+Route::get('login',[AccountController::class,'authenticate']);
 
 
 Route::group(['middleware'=>'auth:sanctum'], function(){

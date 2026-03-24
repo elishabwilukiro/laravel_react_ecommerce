@@ -10,7 +10,8 @@ use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
-    public function Authenticate(Request $request){
+    public function Authenticate(Request $request)
+    {
         $validator = Validator::make($request->all(),[
             'email'     =>  'required|email',
             'password'  =>  'required'     
