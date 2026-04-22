@@ -4,11 +4,11 @@ import { Navigate } from "react-router-dom"
 
 export const AdminRequireAuth = ({ children }) => {
      
-     // const {user} = useContext(AdminAuthContext);
+     const {user} = useContext(AdminAuthContext);
 
-     // if(!user){
-     //      return <Navigate to={`/admin/login`} />
-     // }
+     if(!user){
+          return <Navigate to={`/admin/login`} />
+     }
 
      return children;
 }

@@ -8,11 +8,10 @@ import { AdminAuthContext } from '../context/AdminAuth';
 import { AuthContext } from '../context/Auth';
 
 const Login = () => {
-     const {login} = useContext(AdminAuthContext); 
+     const {login} = useContext(AuthContext); 
      const{
           register,
           handleSubmit,
-          watch,
           formState: {errors},
      } = useForm();
 
@@ -20,7 +19,7 @@ const Login = () => {
 
      const onSubmit = async (data) => {
           console.log(data)
-          const res = await fetch(`${apiUrl}/admin/login`,{
+          const res = await fetch(`${apiUrl}/account/login`,{
                method: 'POST',
                headers: {
                     'Content-type' : 'application/json',
@@ -30,16 +29,16 @@ const Login = () => {
           }).then(res => res.json())
           .then(result => {
                if (result.status == 200){
-                    const adminInfo = {
+                    const userInfo = {
                          token: result.token,
                          id: result.id,
                          name: result.name
                     }
-                    localStorage.setItem('adminInfo', JSON.stringify(adminInfo))
+                    localStorage.setItem('userInfo', JSON.stringify(userInfo))
                     toast.success("Login successful")
-                    login(adminInfo)
+                    login(userInfo)
                     setTimeout(() => {                    
-                         navigate('/admin/dashboard')
+                         navigate('/account/dashboard')
                     }, 500);
                }else{
                     toast.error(result.message);

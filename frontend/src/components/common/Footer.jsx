@@ -38,7 +38,7 @@ const Footer = () => {
                                    categories && categories.map(category => {
                                         return(
                                              <li key={category.id}>
-                                                  <Link to={`/shop`}>{category.name}</Link>
+                                                  <Link to={`/shop?category=${category.id}`}>{category.name}</Link>
                                              </li>
                                         )
                                    })
@@ -49,8 +49,8 @@ const Footer = () => {
                          <h2 className="mb-3">Quick Links</h2>
                          <ul>
                               <li><Link to="/shop">Shop</Link></li>
-                              <li><Link to="/admin/login">Login</Link></li>
-                              <li><Link to="/admin/register">Register</Link></li>
+                              <li><Link to="/account/login">Login</Link></li>
+                              <li><Link to="/account/register">Register</Link></li>
                          </ul>
                     </div>
                     <div className="col-lg-3 col-md-6 col-6 pb-4">

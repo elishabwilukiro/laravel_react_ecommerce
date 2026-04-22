@@ -13,7 +13,7 @@ export const CartProvider = ({children}) => {
           // Cart is empty
           if(cartData.length == 0){
                updatedCart.push({
-                    id: `${product.id}-${Math.floor(Math.random() * 1000000)}`,
+                    id: `${product.id}-${Math.floor(Math.random() * 10000000)}`,
                     product_id: product.id,
                     size: size,
                     title: product.title,
@@ -61,7 +61,7 @@ export const CartProvider = ({children}) => {
                     }else{
                          // If product not exist, add new item
                          updatedCart.push({
-                              id: `${product.id}-${Math.floor(Math.random() * 1000000)}`,
+                              id: `${product.id}-${Math.floor(Math.random() * 10000000)}`,
                               product_id: product.id,
                               size: size,
                               title: product.title,

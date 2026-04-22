@@ -24,9 +24,10 @@ class AccountController extends Controller
 
         if($validator->fails()){
             return response()->json([
-                'status' => 400,
-                'errors' => $validator->errors()
-            ],400);
+                'status' => 422,
+                'message'=> 'Validation failed',
+                'errors' => $validator->errors(),
+            ],422);
         }
 
         $user = User::create([
@@ -43,7 +44,7 @@ class AccountController extends Controller
         return response()->json([
             'status' => 200,
             'data'  => $user,
-            'message' => 'Your have registered successfully'
+            'message' => 'Registered successfully, Login now.'
         ], 200);
     }
 
@@ -57,32 +58,32 @@ class AccountController extends Controller
         if($validator->fails()){
             return response()->json([
                 'status' => 400,
-                'errors' => $validator->errors()
+                'errors' => $validator->errors(),
+                'message'=> 'Validation failed'
             ],400);
         }
 
-        if(Auth::attempt(['email'=>$request->email,'password'=>$request->password])){
+        if(Auth::attempt(
+            ['email' => $request->email, 
+            'password' => Hash::make($request->password)])){
             
             $user = User::find(Auth::user()->id);
 
-            if($user->role == 'customer'){
-                
-                $token = $user->createToken('token')->plainTextToken;
+            $token = $user->createToken('token')->plainTextToken;
 
-                return response()->json([
-                    'status' => 200,
-                    'token' => $token,
-                    'id'    => $user->id,
-                    'name'  => $user->name
-                ],200);
-            }
+            return response()->json([
+                'status'    =>  200,
+                'token'     =>  $token,
+                'id'        =>  $user->id,
+                'name'      =>  $user->name
+            ], 200);
+
         }else{
             return response()->json([
                 'status' => 401,
                 'message' => 'Incorrect email or password'
             ],401);
         }
-
         
     }
 }

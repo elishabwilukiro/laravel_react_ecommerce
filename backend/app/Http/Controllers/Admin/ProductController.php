@@ -22,7 +22,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $product = Product::with(['category','brand'])    
+        $product = Product::with(['category','brand','size'])    
             ->where('archive','0')
             ->orderBy('created_at','DESC')
             ->get();
