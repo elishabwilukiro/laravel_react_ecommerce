@@ -1,3 +1,11 @@
 # Laravel & React E-Commerce Application
-# laravel_react_ecommerce
-# laravel_react_ecommerce
+
+1. Frontend
+ - React
+ - Tailwind
+
+2. Backend
+ - Laravel
+
+3. Database
+ - Mysql
