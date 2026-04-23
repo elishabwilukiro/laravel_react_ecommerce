@@ -20,6 +20,7 @@
 # Backend
  - Laravel
  - Rest Api
+ - Postman & Thunder client
  - Auth : sanctum
 
 # Database
