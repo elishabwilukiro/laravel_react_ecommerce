@@ -1,11 +1,26 @@
 # Laravel & React E-Commerce Application
 
-1. Frontend
+# Features
+- Products
+- Categories
+- Brands
+- Sizes
+- Cart
+- Orders
+- Checkout
+- Payment methods
+- Dashboard report
+- Shipping
+- Change password
+  
+# Frontend
  - React
  - Tailwind
 
-2. Backend
+# Backend
  - Laravel
+ - Rest Api
+ - Auth : sanctum
 
-3. Database
+# Database
  - Mysql
