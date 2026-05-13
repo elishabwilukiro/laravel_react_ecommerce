@@ -1,4 +1,4 @@
-# Laravel & React E-Commerce Application
+# E-Commerce Application
 
 # Features
 - Products
@@ -15,13 +15,20 @@
   
 # Frontend
  - React
+ - Vite
  - Tailwind
 
 # Backend
  - Laravel
  - Rest Api
  - Postman & Thunder client
- - Auth : sanctum
+ - JWT/Auth : sanctum
 
 # Database
  - Mysql
+
+# Deployment
+ - Nginx
+ - Docker (optional)
+ - Ubuntu Server
+ - CI/CD with GitHub Actions (optional)
