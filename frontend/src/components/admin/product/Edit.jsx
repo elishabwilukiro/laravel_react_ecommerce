@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Layout from "../../common/Layout";
 import Sidebar from "../Sidebar";
 import { useForm } from "react-hook-form";
@@ -7,13 +7,14 @@ import { toast } from "react-toastify";
 import React, { useEffect, useState, useRef, useMemo } from 'react';
 import JoditEditor from 'jodit-react';
 
-const Create = ({ placeholder }) => {
+const Edit = ({ placeholder }) => {
   const editor = useRef(null);
   const [content, setContent] = useState('')
   const [disable, setDisable] = useState(false);
   const [brands, setBrands] = useState([]);
   const [categories, setCategories] = useState([]);
   const navigate = useNavigate();
+  const params = useParams();
     
   const config = useMemo(() => ({
       readonly: false,
@@ -25,74 +26,108 @@ const Create = ({ placeholder }) => {
   const{
     register,
     handleSubmit,
-    watch,
+    reset,
     formState: {errors},
-  } = useForm();
-    const saveProduct = async (data) => {
-      setDisable(true);
-      const formData = {...data, "description" : content}
-      // console.log(formData)
-      const res = await fetch(`${apiUrl}/products`,{
-        method:   'POST',
-        headers: {
-          'Content-type'  : 'application/json',
-          'Accept'        : 'application/json',
-          'Authorization' : `Bearer ${adminToken()}`,
-        },
-        body: JSON.stringify(formData)
-      })
-      .then(res => res.json())
-      .then(result => {
-        setDisable(false);
-        if(result.status == 200){
-          toast.success(result.message);
-          navigate('/admin/products');
-        }else{
-          console.log("Something Went Wrong.")
+  } = useForm({
+        defaultValues: async () => {
+          const res = await fetch(`${apiUrl}/products/${params.id}`,{
+            method:   'GET',
+            headers: {
+              'Content-type'  : 'application/json',
+              'Accept'        : 'application/json',
+              'Authorization' : `Bearer ${adminToken()}`,
+            },
+          })
+          .then(res => res.json())
+          .then(result => {
+            console.log(result);
+            if(result.status == 200){
+              reset({
+                qty: result.data.qty,
+                sku: result.data.sku,
+                title: result.data.title,
+                price: result.data.price,
+                barcode: result.data.barcode,
+                brand_id: result.data.brand_id,
+                category_id: result.data.category_id,
+                is_featured: result.data.is_featured,
+                description: result.data.description,
+                compare_price: result.data.compare_price,
+                short_description: result.data.short_description,
+                status: result.data.status,
+              });
+            }else{
+              console.log("Something Went Wrong.")
+            }
+          })              
         }
-      })
-    }    
-    const fetchBrands = async () => {
-      const res = await fetch(`${apiUrl}/brands`,{
-        method : 'GET',
-        headers : {
-          'Content-type'  : 'application/json',
-          'Accept'        : 'application/json',
-          'Authorization' : `Bearer ${adminToken()}`,
-        }
-      })
-      .then(res => res.json())
-      .then(result => {
-        if(result.status == 200){
-          setBrands(result.data);
-        }else{
-          console.log("Something went wrong.");
-        }
-      });
-    }
-    const fetchCategories = async () => {
-      const res = await fetch(`${apiUrl}/categories`,{
-        method : 'GET',
-        headers : {
-          'Content-type'  : 'application/json',
-          'Accept'        : 'application/json',
-          'Authorization' : `Bearer ${adminToken()}`,
-        }
-      })
-      .then(res => res.json())
-      .then(result => {
-        if(result.status == 200){
-          setCategories(result.data);
-        }else{
-            console.log("Something went wrong.");
-        }
-      });
-    }
+     });
 
-    useEffect(() => {
-      fetchBrands();
-      fetchCategories();
-    },[]);
+  const updateProduct = async (data) => {
+    const formData = {...data, "description" : content}
+    setDisable(true);
+    // console.log(formData)
+    const res = await fetch(`${apiUrl}/products/${params.id}`,{
+      method:   'POST',
+      headers: {
+        'Content-type'  : 'application/json',
+        'Accept'        : 'application/json',
+        'Authorization' : `Bearer ${adminToken()}`,
+      },
+      body: JSON.stringify(formData)
+    })
+    .then(res => res.json())
+    .then(result => {
+      setDisable(false);
+      if(result.status == 200){
+        toast.success(result.message);
+        navigate('/admin/products');
+      }else{
+        console.log("Something Went Wrong.")
+      }
+    })
+  }    
+  const fetchBrands = async () => {
+    const res = await fetch(`${apiUrl}/brands`,{
+      method : 'GET',
+      headers : {
+        'Content-type'  : 'application/json',
+        'Accept'        : 'application/json',
+        'Authorization' : `Bearer ${adminToken()}`,
+      }
+    })
+    .then(res => res.json())
+    .then(result => {
+      if(result.status == 200){
+        setBrands(result.data);
+      }else{
+        console.log("Something went wrong.");
+      }
+    });
+  }
+  const fetchCategories = async () => {
+    const res = await fetch(`${apiUrl}/categories`,{
+      method : 'GET',
+      headers : {
+        'Content-type'  : 'application/json',
+        'Accept'        : 'application/json',
+        'Authorization' : `Bearer ${adminToken()}`,
+      }
+    })
+    .then(res => res.json())
+    .then(result => {
+      if(result.status == 200){
+        setCategories(result.data);
+      }else{
+          console.log("Something went wrong.");
+      }
+    });
+  }
+
+  useEffect(() => {
+    fetchBrands();
+    fetchCategories();
+  },[]);
 
 
   return (
@@ -100,7 +135,7 @@ const Create = ({ placeholder }) => {
       <Layout>
             <div className="container p-5">
                 <div className="d-flex justify-content-between mb-3">
-                      <h4 className='h4 pb-0 mb-0'>Products</h4>
+                      <h4 className='h4 pb-0 mb-0'>Products / Edit</h4>
                       <Link to="/admin/products" className="btn btn-primary">Back</Link>
                 </div>
                 <div className="row">
@@ -108,12 +143,9 @@ const Create = ({ placeholder }) => {
                           <Sidebar />
                       </div>
                       <div className="col-md-9 col-sm-12 main-bar">
-                          <div className="card shadow">
-                                <div className="card-header">
-                                    <h3 className="card-title mt-2">Create Product</h3>
-                                </div>
+                          <div className="card shadow">                                
                                 <div className="card-body">
-                                    <form onSubmit={handleSubmit(saveProduct)}>
+                                    <form onSubmit={handleSubmit(updateProduct)}>
                                       <div className="row">
                                         <div className="col-md-12 col-sm-12">
                                           <div className="form-group mb-3">
@@ -283,7 +315,7 @@ const Create = ({ placeholder }) => {
                                       <div className="mb-3">
                                         <button 
                                           disabled={disable}
-                                          type="submit" className="btn btn-primary float-right">Save</button>
+                                          type="submit" className="btn btn-primary float-right">Update</button>
                                       </div>
                                     </form>                                        
                                 </div>
@@ -296,4 +328,4 @@ const Create = ({ placeholder }) => {
   );
 };
 
-export default Create;
+export default Edit;

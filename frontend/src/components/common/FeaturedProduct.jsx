@@ -48,7 +48,7 @@ const FeaturedProduct = () => {
                                                        <div className="card-body pt-3">
                                                             <Link to={`/shop-product/${feature.id}`}>{feature.title}</Link>
                                                             <div className="price">
-                                                            {feature.price}TZS <span className='text-decoration-line-through'>{feature.compare_price}TZS</span>
+                                                            {feature.price}TZS <small className='text-decoration-line-through'>{feature.compare_price}TZS</small>
                                                             </div>
                                                        </div>
                                                   </div>

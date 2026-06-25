@@ -1,6 +1,6 @@
-# E-Commerce Application
+# E-Commerce Application System
 
-# Features
+## Features
 - Products
 - Categories
 - Brands
@@ -13,21 +13,25 @@
 - Shipping
 - Change password
   
-# Frontend
+## Frontend
  - React
  - Vite
  - Tailwind
+ - json-server --watch db.json --port 3001
 
-# Backend
- - Laravel
+## Backend
+ - Laravel-Php
  - Rest Api
  - Postman & Thunder client
- - JWT/Auth : sanctum
+ - LaravelJWT/Auth : sanctum
+ - Laravel-APIs - php artisan make:middleware checkAdmi
 
-# Database
- - Mysql
+## Database
+ - MySQL Database
+ - PostgreSQL for robust data management.
+ - Fetch Data Using Json Sever
 
-# Deployment
+## Deployment
  - Nginx
  - Docker (optional)
  - Ubuntu Server

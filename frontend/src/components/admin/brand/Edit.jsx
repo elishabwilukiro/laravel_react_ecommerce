@@ -12,6 +12,7 @@ const Edit = () => {
      const [brand, setBrand] = useState([]);
      const navigate = useNavigate();
      const params = useParams();
+     
      const{
           register,
           handleSubmit,
@@ -26,10 +27,12 @@ const Edit = () => {
                          'Accept'        : 'application/json',
                          'Authorization' : `Bearer ${adminToken()}`,
                     },
-               })
+               })               
                .then(res => res.json())
                .then(result => {
+                    console.log(result.data);
                     if(result.status == 200){
+                         setBrand(result.data);
                          reset({
                               name: result.data.name,
                               status: result.data.status
@@ -37,11 +40,10 @@ const Edit = () => {
                     }else{
                          console.log("Something Went Wrong.")
                     }
-               })
-               
+               });
           }
      });
-
+     
      const updateBrand = async (data) => {
           setDisable(true);
           console.log(data)
@@ -71,7 +73,7 @@ const Edit = () => {
           <Layout>
                <div className="container p-5">
                     <div className="d-flex justify-content-between mb-3">
-                         <h4 className='h4 pb-0 mb-0'>Brands</h4>
+                         <h4 className='h4 pb-0 mb-0'>Brands / Edit</h4>
                          <Link to="/admin/brands" className="btn btn-primary">Back</Link>
                     </div>
                     <div className="row">
@@ -80,9 +82,6 @@ const Edit = () => {
                          </div>
                          <div className="col-md-9 col-sm-12 main-bar">
                               <div className="card shadow">
-                                   <div className="card-header">
-                                        <h3 className="card-title mt-2">Edit Category</h3>
-                                   </div>
                                    <div className="card-body">
                                         <form onSubmit={handleSubmit(updateBrand)}>
                                              <div className="form-group mb-3">

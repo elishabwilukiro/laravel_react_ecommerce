@@ -8,7 +8,7 @@ import { useState } from "react";
 
 const Edit = () => {
      const [disable, setDisable] = useState(false);
-     const [category, setCategory] = useState([]);
+     const [users, setUsers] = useState([]);
      const navigate = useNavigate();
      const params = useParams();
      const{
@@ -18,7 +18,7 @@ const Edit = () => {
           formState: {errors},
      } = useForm({
           defaultValues: async () => {
-               const res = await fetch(`${apiUrl}/categories/${params.id}`,{
+               const res = await fetch(`${apiUrl}/users/${params.id}`,{
                     method:   'GET',
                     headers: {
                          'Content-type'  : 'application/json',
@@ -28,11 +28,13 @@ const Edit = () => {
                })               
                .then(res => res.json())
                .then(result => {
-                    console.log(result.data);
+                    console.log(result);
                     if(result.status == 200){
-                         setCategory(result.data);
+                         setUsers(result.data);
                          reset({
                               name: result.data.name,
+                              email: result.data.email,
+                              role: result.data.role,
                               status: result.data.status
                          });
                     }else{
@@ -41,10 +43,10 @@ const Edit = () => {
                });
           }
      });
-     const updateCategory = async (data) => {
+     const updateUser = async (data) => {
           setDisable(true);
           console.log(data)
-          const res = await fetch(`${apiUrl}/categories/${params.id}`,{
+          const res = await fetch(`${apiUrl}/users/${params.id}`,{
                method:   'PUT',
                headers: {
                     'Content-type'  : 'application/json',
@@ -58,7 +60,7 @@ const Edit = () => {
                setDisable(false);
                if(result.status == 200){
                     toast.success(result.message);
-                    navigate('/admin/categories');
+                    navigate('/admin/users');
                }else{
                     console.log("Something Went Wrong.")
                }
@@ -69,8 +71,8 @@ const Edit = () => {
           <Layout>
                <div className="container p-5">
                     <div className="d-flex justify-content-between mb-3">
-                         <h4 className='h4 pb-0 mb-0'>Categories / Edit</h4>
-                         <Link to="/admin/categories" className="btn btn-primary">Back</Link>
+                         <h4 className='h4 pb-0 mb-0'>Users / Edit</h4>
+                         <Link to="/admin/users" className="btn btn-primary">Back</Link>
                     </div>
                     <div className="row">
                          <div className="col-md-3 col-sm-12 side-bar">
@@ -79,19 +81,50 @@ const Edit = () => {
                          <div className="col-md-9 col-sm-12 main-bar">
                               <div className="card shadow">
                                    <div className="card-body">
-                                        <form onSubmit={handleSubmit(updateCategory)}>
+                                        <form onSubmit={handleSubmit(updateUser)}>
                                              <div className="form-group mb-3">
-                                                  <label htmlFor="">Name <span className="text-danger">*</span></label>
-                                                  <input 
+                                                  <label htmlFor="" className='form-label'>Name <span className="text-danger">*</span></label>
+                                                  <input
                                                        type="text" 
-                                                       {...register("name", { required: "The name field is required." })} 
+                                                       {...register("name", { 
+                                                            required: "The name field is required." 
+                                                       })}
                                                        className={`form-control ${errors.name ? 'is-invalid' : ''}`}
-                                                       placeholder="Category name"  />
-
-                                                       {errors.name && (
-                                                            <p className="invalid-feedback">{errors.name?.message}</p>
-                                                       )} 
+                                                       placeholder='Full name' 
+                                                  />
+                                                  {errors.name && (
+                                                       <p className="invalid-feedback">{errors.name.message}</p>
+                                                  )}   
                                              </div>
+                                             <div className="form-group mb-3">
+                                                  <label htmlFor="" className='form-label'>Email <span className="text-danger">*</span></label>
+                                                  <input
+                                                       type="text" 
+                                                       {...register("email", { 
+                                                            required: "The email field is required." 
+                                                       })}
+                                                       className={`form-control ${errors.email ? 'is-invalid' : ''}`}
+                                                       placeholder='Email' 
+                                                  />
+                                                  {errors.email && (
+                                                       <p className="invalid-feedback">{errors.email.message}</p>
+                                                  )}   
+                                             </div>
+                                             
+                                             <div className="form-group mb-3">
+                                                  <label htmlFor="">Role <span className="text-danger">*</span></label>
+                                                  <select 
+                                                       {...register("role", { required: "Please select a role." })} 
+                                                       className={`form-control ${errors.role ? 'is-invalid' : ''}`}>
+                                                       <option value="">~Select~</option>
+                                                       <option value="admin">Admin</option>
+                                                       <option value="customer">Customer</option>
+                                                  </select>
+                                                  {errors.role && (
+                                                       <p className="invalid-feedback">{errors.role?.message}</p>
+                                                  )} 
+                                             </div>
+                                                  
                                              <div className="form-group mb-3">
                                                   <label htmlFor="">Status <span className="text-danger">*</span></label>
                                                   <select 
@@ -105,13 +138,13 @@ const Edit = () => {
                                                        <p className="invalid-feedback">{errors.status?.message}</p>
                                                   )} 
                                              </div>
+                                             
                                              <div className="mb-3">
                                                   <button 
-                                                       disabled={disable}
-                                                       type="submit" className="btn btn-primary float-right">Update</button>
+                                                  disabled={disable}
+                                                  type="submit" className="btn btn-primary float-right">Update</button>
                                              </div>
-                                        </form>
-                                        
+                                        </form>                                        
                                    </div>
                               </div>
                          </div>

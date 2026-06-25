@@ -206,7 +206,7 @@ const Shop = () => {
                                   {product.title}
                                 </Link>
                                 <div className="price">
-                                  {product.price}TZS <span className='text-decoration-line-through'>{product.compare_price}TZS</span>
+                                  {product.price}TZS <small className='text-decoration-line-through'>{product.compare_price}TZS</small>
                                 </div>
                               </div>
                             </div>

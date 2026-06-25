@@ -42,7 +42,7 @@ const Create = () => {
           <Layout>
                <div className="container p-5">
                     <div className="d-flex justify-content-between mb-3">
-                         <h4 className='h4 pb-0 mb-0'>Brands</h4>
+                         <h4 className='h4 pb-0 mb-0'>Brands / Create</h4>
                          <Link to="/admin/brands" className="btn btn-primary">Back</Link>
                     </div>
                     <div className="row">
@@ -51,9 +51,6 @@ const Create = () => {
                          </div>
                          <div className="col-md-9 col-sm-12 main-bar">
                               <div className="card shadow">
-                                   <div className="card-header">
-                                        <h3 className="card-title mt-2">Create Brand</h3>
-                                   </div>
                                    <div className="card-body">
                                         <form onSubmit={handleSubmit(saveBrand)}>
                                              <div className="form-group mb-3">

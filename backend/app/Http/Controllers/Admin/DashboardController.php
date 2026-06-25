@@ -16,7 +16,7 @@ class DashboardController extends Controller
         $totalBrand = Brand::where('archive','0')->count();
         $totalCategory = Category::where('archive','0')->count();
         $totalUser = User::where('archive','0')->count();
-        $totalProduct = User::where('archive','0')->count();
+        $totalProduct = Product::where('archive','0')->count();
 
         return response()->json([
             'status' => 200,

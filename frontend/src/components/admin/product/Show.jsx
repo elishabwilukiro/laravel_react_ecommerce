@@ -66,7 +66,7 @@ const Show= () => {
                <Layout>
                     <div className="container p-5">
                          <div className="d-flex justify-content-between mb-3">
-                              <h4 className='h4 pb-0 mb-0'>Products</h4>
+                              <h4 className='h4 pb-0 mb-0'>Products / List</h4>
                               <Link to="/admin/products/create" className="btn btn-primary">Add New</Link>
                          </div>
                          <div className="row">
@@ -90,7 +90,7 @@ const Show= () => {
                                                                  <th>S/N</th>
                                                                  <th>IMAGE</th>
                                                                  <th>TITLE</th>
-                                                                 <th>PRICE (TZS)</th>
+                                                                 <th>PRICE(TZS)</th>
                                                                  <th>QTY</th>
                                                                  <th>SKU</th>
                                                                  <th>CATEGORY</th>

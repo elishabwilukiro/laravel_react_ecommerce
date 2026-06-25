@@ -26,8 +26,9 @@ import { default as ShowProducts } from './components/admin/product/Show';
 import { default as CreateProduct } from './components/admin/product/Create';
 import { default as EditProduct } from './components/admin/product/Edit';
 
-import { default as ShowUsers } from './components/admin/user/Show'
-import { default as ShowProfile } from './components/admin/profile/Show'
+import { default as ShowUsers } from './components/admin/user/Show';
+import { default as EditUsers } from './components/admin/user/Edit';
+import { default as ShowProfile } from './components/admin/profile/Show';
 
 
 function App() {
@@ -110,6 +111,11 @@ function App() {
           <Route path='/admin/users' element={
             <AdminRequireAuth>
               <ShowUsers />
+            </AdminRequireAuth>
+          } />                     
+          <Route path='/admin/users/edit/:id' element={
+            <AdminRequireAuth>
+              <EditUsers />
             </AdminRequireAuth>
           } />
 

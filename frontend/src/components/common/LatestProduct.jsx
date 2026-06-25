@@ -51,7 +51,7 @@ const LatestProduct = () => {
                                                        <div className="card-body pt-3">
                                                             <Link to={`/shop-product/${latest.id}`}>{latest.title}</Link>
                                                             <div className="price">
-                                                            {latest.price}TZS <span className='text-decoration-line-through'>{latest.compare_price}TZS</span>
+                                                            {latest.price}TZS <small className='text-decoration-line-through'>{latest.compare_price}TZS</small>
                                                             </div>
                                                        </div>
                                                   </div>
