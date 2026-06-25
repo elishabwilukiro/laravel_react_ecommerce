@@ -39,26 +39,35 @@ const Show = () => {
      },[]);
 
      const deleteUser = async (id) => {
-          if(confirm("Are you sure you want to Delete?")){
-               const res = await fetch(`${apiUrl}/users/${id}`,{
-                    method : 'DELETE',
-                    headers : {
-                         'Content-type'  : 'application/json',
-                         'Accept'        : 'application/json',
-                         'Authorization' : `Bearer ${adminToken()}`,
+          if (!window.confirm("Are you sure you want to Delete?")) {
+               return;
+          }
+
+          setLoader(true);
+
+          try {
+               const response = await fetch(`${apiUrl}/users/${id}`, {
+                    method: 'DELETE',
+                    headers: {
+                         'Content-type': 'application/json',
+                         'Accept': 'application/json',
+                         'Authorization': `Bearer ${adminToken()}`,
                     }
-               })
-               .then(res => res.json())
-               .then(result => {
-                    setLoader(false);
-                    if(result.status == 200){
-                         const newUser = users.filter(user => user.id != id);
-                         setUsers(newUser);
-                         toast.success(result.message);
-                    }else{
-                         console.log("Something went wrong.");
-                    }
-               })
+               });
+
+               const result = await response.json();
+
+               if (result.status === 200) {
+                    setUsers((prevUsers) => prevUsers.filter((user) => user.id !== id));
+                    toast.success(result.message || 'User Deleted Successfully');
+               } else {
+                    toast.error(result.message || 'Something Went Wrong.');
+               }
+          } catch (error) {
+               console.error(error);
+               toast.error('Something Went Wrong.');
+          } finally {
+               setLoader(false);
           }
      }
 

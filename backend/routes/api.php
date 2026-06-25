@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SizeController;
 use App\Http\Controllers\Admin\TempImageController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Front\AccountController;
 use App\Http\Controllers\Front\OrderController;
 use App\Http\Controllers\Front\ProductController as FrontProductController;
@@ -39,6 +40,7 @@ Route::group(['middleware'=>['auth:sanctum','checkAdminRole']], function(){
     Route::get('dashboard',[DashboardController::class,'index']);
     Route::get('sizes',[SizeController::class,'index']);
     Route::post('temp-images',[TempImageController::class,'store']);
+    Route::get('profile',[ProfileController::class,'profile']);
     Route::resource('brands',BrandController::class);
     Route::resource('categories',CategoryController::class);
     Route::resource('products',ProductController::class);

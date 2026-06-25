@@ -84,7 +84,7 @@ class UserController extends Controller
     {
         $user = User::find($id);
 
-        if($user == null){
+        if(!$user){
             return response([
                 'status' => 404,
                 'data'   => [],
@@ -92,7 +92,7 @@ class UserController extends Controller
             ],404);
         }
 
-        if($user->id==Auth::user()->id){
+        if($user->id === Auth::id()){
             return response([
                 'status' => 400,
                 'data'   => [],
@@ -105,7 +105,7 @@ class UserController extends Controller
 
         return response([
             'status' => 200,
-            'data'   => $user,
+            'data'   => $user->fresh(),
             'message'=> 'User Delete Successfully',
         ],200);
 
