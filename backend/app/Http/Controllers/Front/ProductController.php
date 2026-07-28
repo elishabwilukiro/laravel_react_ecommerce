@@ -68,6 +68,7 @@ class ProductController extends Controller
             'data'   => $getCategory,
         ], 200);
     }
+    
     public function shopProducts(Request $request)
     {
         $products = Product::query()
@@ -95,6 +96,7 @@ class ProductController extends Controller
         ],200);
 
     }
+
     public function shopProduct($id)
     {
         $product = Product::with([

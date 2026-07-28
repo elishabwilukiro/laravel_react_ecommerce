@@ -25,17 +25,26 @@ Route::get('shop-product/{id}',[FrontProductController::class,'shopProduct']);
 Route::post('account/register', [AccountController::class,'register']);
 Route::post('account/login',[AccountController::class,'authenticate']);
 
+
+// Group Roles
+Route::group(['middleware'=>['auth:sanctum']], function(){
+    Route::get('admin/profile',[ProfileController::class,'profile']);
+});
+
+// User Routes
 Route::group(['middleware'=>['auth:sanctum','checkUserRole']], function(){
     Route::post('save-order',[OrderController::class,'saveOrder']);
 });
 
 
+
+// Admin Routes
 Route::group(['middleware'=>['auth:sanctum','checkAdminRole']], function(){
-    # Route::get('categories', [CategoryController::class,'index']);
-    # Route::get('categories/{id}', [CategoryController::class,'show']);
-    # Route::put('categories/{id}', [CategoryController::class,'update']);
-    # Route::delete('categories/{id}', [CategoryController::class,'destroy']);
-    # Route::post('categories', [CategoryController::class,'store']);
+    // Route::get('categories', [CategoryController::class,'index']);
+    // Route::get('categories/{id}', [CategoryController::class,'show']);
+    // Route::put('categories/{id}', [CategoryController::class,'update']);
+    // Route::delete('categories/{id}', [CategoryController::class,'destroy']);
+    // Route::post('categories', [CategoryController::class,'store']);
 
     Route::get('dashboard',[DashboardController::class,'index']);
     Route::get('sizes',[SizeController::class,'index']);

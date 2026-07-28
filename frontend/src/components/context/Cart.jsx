@@ -20,7 +20,8 @@ export const CartProvider = ({children}) => {
                     price: product.price,
                     qty: 1, 
                     image_url: product.image_url
-               })
+               });
+
           }else{
 
                // Size not empty
@@ -96,7 +97,7 @@ export const CartProvider = ({children}) => {
           return subTotal() + shipping();
      }
 
-     const updatedCartItem = (itemId, newQty) => {
+     const updateCartItem = (itemId, newQty) => {
           let updatedCart = [...cartData];
           updatedCart = updatedCart.map(item => {
                (item.id == itemId) ? {...item, qty: newQty} : item
@@ -104,8 +105,16 @@ export const CartProvider = ({children}) => {
           setCartData(updatedCart)
           localStorage.setItem('cart',JSON.stringify(updatedCart))
      }
+
+     const deleteCartItem = (itemId) => {
+          const newCartData = cartData.filter(item => item.id != itemId)
+          setCartData(newCartData)
+          localStorage.setItem('cart',JSON.stringify(newCartData))
+     }
+
+     
      return(
-          <CartContext.Provider value={{ addToCart, cartData, grandTotal, subTotal, shipping, updatedCartItem }}>
+          <CartContext.Provider value={{ addToCart, cartData, grandTotal, subTotal, shipping, updateCartItem, deleteCartItem }}>
                {children}
           </CartContext.Provider>
      )

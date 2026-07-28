@@ -72,7 +72,7 @@ const Show = () => {
                               </div>
                               <div className="col-md-9 col-sm-12 main-bar">
                                    <div className="card shadow">
-                                        <div className="card-body">
+                                        <div className="card-body table-responsive">
                                              
                                              {loader == true && <Loader />}
                                              {loader == false && brands.length == 0 && (

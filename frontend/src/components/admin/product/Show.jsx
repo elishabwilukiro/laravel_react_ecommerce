@@ -115,7 +115,7 @@ const Show= () => {
                                                                                      }
                                                                                 </td>
                                                                                 <td>{product.title}</td>
-                                                                                <td>{product.price}</td>
+                                                                                <td>{new Intl.NumberFormat('en-TZ').format(product.price)}</td>
                                                                                 <td>{product.qty}</td>
                                                                                 <td>{product.sku}</td>
                                                                                 <td>{product.category.name}</td>

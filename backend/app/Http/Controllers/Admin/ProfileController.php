@@ -9,15 +9,24 @@ use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
 {
-    public function profile(Request $request, $id)
+    
+    public function profile()
     {
-        $user = Auth::user();
+        $user =  Auth::user();
 
+        if(!$user) {
+            return response()->json([
+                'status'    =>  401,
+                'message'   =>  'Unauthorized'
+            ], 401);
+
+        } 
+            
         return response()->json([
-            'status' => 200,
-            'data' => $user,
-        ], 200);
-        
+            'status'    =>  200,
+            'user'      =>  $user
+        ], 200); 
+
     }
     
 }

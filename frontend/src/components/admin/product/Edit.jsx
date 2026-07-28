@@ -68,7 +68,7 @@ const Edit = ({ placeholder }) => {
     setDisable(true);
     // console.log(formData)
     const res = await fetch(`${apiUrl}/products/${params.id}`,{
-      method:   'POST',
+      method:   'PUT',
       headers: {
         'Content-type'  : 'application/json',
         'Accept'        : 'application/json',
@@ -87,6 +87,7 @@ const Edit = ({ placeholder }) => {
       }
     })
   }    
+  
   const fetchBrands = async () => {
     const res = await fetch(`${apiUrl}/brands`,{
       method : 'GET',
@@ -105,6 +106,7 @@ const Edit = ({ placeholder }) => {
       }
     });
   }
+
   const fetchCategories = async () => {
     const res = await fetch(`${apiUrl}/categories`,{
       method : 'GET',
