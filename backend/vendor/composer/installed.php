@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'laravel/laravel',
-        'pretty_version' => 'dev-master',
-        'version' => 'dev-master',
-        'reference' => '9b2d13d2ce9e6f3bd22d301fa8157351daa92c6e',
+        'pretty_version' => 'dev-main',
+        'version' => 'dev-main',
+        'reference' => '77b2a9f79932757c18ab16e8a18288e8ad234503',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -380,9 +380,9 @@
             'dev_requirement' => false,
         ),
         'intervention/image' => array(
-            'pretty_version' => '3.11.7',
-            'version' => '3.11.7.0',
-            'reference' => '2159bcccff18f09d2a392679b81a82c5a003f9bb',
+            'pretty_version' => '3.11.8',
+            'version' => '3.11.8.0',
+            'reference' => 'cf04c8dd245697f701057c13d4bfe140d584e738',
             'type' => 'library',
             'install_path' => __DIR__ . '/../intervention/image',
             'aliases' => array(),
@@ -404,9 +404,9 @@
             'dev_requirement' => false,
         ),
         'laravel/laravel' => array(
-            'pretty_version' => 'dev-master',
-            'version' => 'dev-master',
-            'reference' => '9b2d13d2ce9e6f3bd22d301fa8157351daa92c6e',
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'reference' => '77b2a9f79932757c18ab16e8a18288e8ad234503',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

@@ -26,9 +26,13 @@ Route::post('account/register', [AccountController::class,'register']);
 Route::post('account/login',[AccountController::class,'authenticate']);
 
 
+
 // Group Roles
 Route::group(['middleware'=>['auth:sanctum']], function(){
     Route::get('admin/profile',[ProfileController::class,'profile']);
+
+
+    Route::post('save-order',[OrderController::class,'saveOrder']);
 });
 
 // User Routes
