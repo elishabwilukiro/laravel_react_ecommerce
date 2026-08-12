@@ -170,8 +170,8 @@ const Product = () => {
                                         productSizes && productSizes.map(product_size => {
                                              return(                                             
                                                   <button 
-                                                       onClick={() => setSizeSelected(product_size.size.name)} 
-                                                       className={`btn btn-size ms-1 ${sizeSelected == product_size.size.name ? 'active' : ''}`} key={product_size.id}>
+                                                       onClick={() => setSizeSelected(product_size.size_id)} 
+                                                       className={`btn btn-size ms-1 ${sizeSelected == product_size.size_id ? 'active' : ''}`} key={product_size.id}>
                                                        {product_size.size.name}
                                                   </button>
                                              )

@@ -1,4 +1,4 @@
-import { memo } from 'react';
+// import { memo } from 'react';
 import Layout from '../../common/Layout';
 import { Link } from 'react-router-dom';
 import Sidebar from '../Sidebar';
