@@ -63,20 +63,21 @@ class AccountController extends Controller
             ],400);
         }
 
-        if(Auth::attempt(
-            ['email' => $request->email, 
-            'password' => Hash::make($request->password)])){
+        if(Auth::attempt(['email' => $request->email, 'password' => Hash::make($request->password)])){
             
             $user = User::find(Auth::user()->id);
 
-            $token = $user->createToken('token')->plainTextToken;
+            if($user->role == 'customer'){
 
-            return response()->json([
-                'status'    =>  200,
-                'token'     =>  $token,
-                'id'        =>  $user->id,
-                'name'      =>  $user->name
-            ], 200);
+                $token = $user->createToken('token')->plainTextToken;
+
+                return response()->json([
+                    'status'    =>  200,
+                    'token'     =>  $token,
+                    'id'        =>  $user->id,
+                    'name'      =>  $user->name
+                ], 200);
+            }
 
         }else{
             return response()->json([

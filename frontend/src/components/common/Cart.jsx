@@ -4,8 +4,17 @@ import { Link } from 'react-router-dom';
 import { CartContext } from '../context/Cart';
 
 const Cart = () => {
-     const { cartData, grandTotal, subTotal, shipping, updateCartItem, deleteCartItem 
-          } = useContext(CartContext);
+     const { 
+          cartData, 
+          grandTotal, 
+          subTotal, 
+          shipping, 
+          updateCartItem, 
+          deleteCartItem      
+     } = useContext(CartContext);
+
+     console.log(cartData);
+
      const [qty, setQty] = useState([]);
 
      const handleQty = (e, itemId) => {
@@ -54,10 +63,10 @@ const Cart = () => {
                                                                  <td width={600}>
                                                                       <h3>{item.title}</h3>
                                                                       <div className="d-flex align-items-center pt-3">
-                                                                           <span>{new Intl.NumberFormat('en-TZ').format(item.price)} TZS</span>
+                                                                           <span>TZS {new Intl.NumberFormat('en-TZ').format(item.price)}</span>
                                                                            <div className='ps-3'>
                                                                                 {
-                                                                                     item.size && <button className='btn btn-size'>{item.size}</button>
+                                                                                     item.size && <button className='btn btn-sm btn-default'>{item.size}</button>
                                                                                 }
                                                                            </div>
                                                                       </div>
@@ -114,7 +123,17 @@ const Cart = () => {
                               </div>
 
                               <div className="d-flex justify-content-end py-3">
-                                   <button className='btn btn-primary'>Proceed To Checkout</button>
+                                   <Link 
+                                        to={cartData?.length > 0 ? "/checkout" : "#"}
+                                        className={`btn btn-primary ${cartData?.length === 0 ? "disabled" : ""}`}
+                                        onClick={(e) => {
+                                             if (!cartData || cartData.length === 0) {
+                                             e.preventDefault();
+                                             }
+                                        }}
+                                   >
+                                        Proceed To Checkout
+                                   </Link>
                               </div>
                          </div>
                     </div>

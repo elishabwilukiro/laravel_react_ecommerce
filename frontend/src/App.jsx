@@ -41,7 +41,7 @@ function App() {
           <Route path='/shop' element={<Shop />} />
           <Route path='/shop-product/:id' element={<Product />} />
           <Route path='/cart' element={<Cart />} />
-          <Route path='/checkout' element={<Checkout />} />
+          {/* <Route path='/checkout' element={<Checkout />} /> */}
           
           <Route path='/account/login' element={<UserLogin />} />
           <Route path='/account/register' element={<UserRegister />} />
@@ -49,6 +49,17 @@ function App() {
           <Route path='/admin/login' element={<AdminLogin />} />
           <Route path='/admin/register' element={<AdminRegister />} />
           
+          <Route path='/account' element={
+            <AdminRequireAuth>
+              <ShowProfile />
+            </AdminRequireAuth>
+          } />
+
+          <Route path='/checkout' element={
+            <AdminRequireAuth>
+              <Checkout />
+            </AdminRequireAuth>
+          } />
 
           {/*----DASHBOARD----*/}
           <Route path='/admin/dashboard' element={

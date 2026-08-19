@@ -48,7 +48,7 @@ const FeaturedProduct = () => {
                                                        <div className="card-body pt-3">
                                                             <Link to={`/shop-product/${feature.id}`}>{feature.title}</Link>
                                                             <div className="price">
-                                                            {feature.price}TZS <small className='text-decoration-line-through'>{feature.compare_price}TZS</small>
+                                                                 TZS{new Intl.NumberFormat('en-TZ').format(feature.price)} <small className='text-decoration-line-through me-5'>TZS {new Intl.NumberFormat('en-TZ').format(feature.compare_price)}</small>
                                                             </div>
                                                        </div>
                                                   </div>

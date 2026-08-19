@@ -51,7 +51,7 @@ const LatestProduct = () => {
                                                        <div className="card-body pt-3">
                                                             <Link to={`/shop-product/${latest.id}`}>{latest.title}</Link>
                                                             <div className="price">
-                                                            {latest.price}TZS <small className='text-decoration-line-through'>{latest.compare_price}TZS</small>
+                                                                 TZS{new Intl.NumberFormat('en-TZ').format(latest.price)} <small className='text-decoration-line-through'>TZS{new Intl.NumberFormat('en-TZ').format(latest.compare_price)}</small>
                                                             </div>
                                                        </div>
                                                   </div>
