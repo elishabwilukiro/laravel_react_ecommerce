@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class OrderItem extends Model
 {
+    protected $database = 'default';
     protected $table = 'order_items';
     protected $primaryKey = 'id';
     protected $fillable = [

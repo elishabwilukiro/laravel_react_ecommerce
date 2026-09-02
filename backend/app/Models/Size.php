@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Size extends Model
 {
+    protected $database = 'default';
     protected $table = 'sizes';
     protected $primaryKey = 'id';
     protected $fillable = ['name','status','archive'];

@@ -6,9 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class ProductSize extends Model
 {
+    protected $database = 'default';
     protected $table = 'product_sizes';
     protected $primaryKey = 'id';
-    protected $fillable = ['product_id', 'size_id', 'status', 'archive'];
+    protected $fillable = [
+        'product_id', 
+        'size_id', 
+        'status', 
+        'archive'
+    ];
 
     public function size()
     {

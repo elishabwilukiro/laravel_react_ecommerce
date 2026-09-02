@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class TempImage extends Model
 {
+    protected $database = 'default';
     protected $table = 'temp_images';
     protected $primaryKey = 'id';
     protected $fillable = ['name','status','archive'];
