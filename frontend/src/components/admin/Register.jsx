@@ -84,6 +84,7 @@ const Register = () => {
                                                   className={`form-control ${errors.email ? 'is-invalid' : ''}`}
                                                   placeholder='Email' 
                                              />
+                                             
                                              {errors.email && (
                                                   <p className="invalid-feedback">{errors.email.message}</p>
                                              )}   

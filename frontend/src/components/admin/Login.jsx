@@ -65,7 +65,7 @@ const Login = () => {
                                                   className={`form-control ${errors.email ? 'is-invalid' : ''}`}
                                                   placeholder='Email' />
                                                   {errors.email && (
-                                                       <p className="invalid-feedback">{errors.email.message}</p>
+                                                       <p className="invalid-feedback">{errors.email?.message}</p>
                                                   )}   
                                         </div>
                                         <div className="form-group mb-3">
@@ -76,7 +76,7 @@ const Login = () => {
                                                   className={`form-control ${errors.password ? 'is-invalid' : ''}`} 
                                                   placeholder='Password' />
                                                   {errors.password && (
-                                                       <p className='invalid-feedback'>{errors.password.message}</p>
+                                                       <p className='invalid-feedback'>{errors.password?.message}</p>
                                                   )}
                                         </div>
                                         <div className="form-group mb-3">

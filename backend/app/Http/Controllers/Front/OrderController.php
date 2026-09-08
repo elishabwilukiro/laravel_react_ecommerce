@@ -12,7 +12,6 @@ class OrderController extends Controller
 {
     public function saveOrder(Request $request)
     {
-        
         if(!empty($request->cart)){
              
             // Save order

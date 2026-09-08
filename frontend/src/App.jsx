@@ -7,7 +7,10 @@ import Cart from './components/common/Cart';
 import Checkout from './components/common/Checkout';
 import { ToastContainer, toast } from 'react-toastify';
 import Dashboard from './components/admin/Dashboard';
+import Confirmation from './components/Confirmation';
+
 import { AdminRequireAuth } from './components/admin/AdminRequireAuth';
+import { RequireAuth } from './components/RequireAuth';
 
 import { default as AdminLogin} from './components/admin/Login';
 import { default as AdminRegister } from './components/admin/Register';
@@ -50,15 +53,21 @@ function App() {
           <Route path='/admin/register' element={<AdminRegister />} />
           
           <Route path='/account' element={
-            <AdminRequireAuth>
+            <RequireAuth>
               <ShowProfile />
-            </AdminRequireAuth>
+            </RequireAuth>
           } />
 
           <Route path='/checkout' element={
-            <AdminRequireAuth>
+            <RequireAuth>
               <Checkout />
-            </AdminRequireAuth>
+            </RequireAuth>
+          } />
+
+          <Route path='/order/confirmation' element={
+            <RequireAuth>
+              <Confirmation />
+            </RequireAuth>
           } />
 
           {/*----DASHBOARD----*/}
