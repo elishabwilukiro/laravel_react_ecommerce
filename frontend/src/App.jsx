@@ -64,11 +64,18 @@ function App() {
             </RequireAuth>
           } />
 
-          <Route path='/order/confirmation' element={
+          <Route path='/order/confirmation/:id' element={
             <RequireAuth>
               <Confirmation />
             </RequireAuth>
           } />
+
+          {/*----DASHBOARD----*/}
+          <Route path='/account/dashboard' element={
+            // <RequireAuth>
+              <Dashboard />
+            // </RequireAuth>
+          } />    
 
           {/*----DASHBOARD----*/}
           <Route path='/admin/dashboard' element={

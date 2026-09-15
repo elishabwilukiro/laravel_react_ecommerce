@@ -1,15 +1,16 @@
 import { useState, useContext } from 'react';
 import Layout from './Layout';
-import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 //import { CartContext } from './context/Cart.jsx';
 import { CartContext } from '../context/Cart';
-import ProductImage from '../../assets/images/Mens/9.jpg';
 import { apiUrl, userToken } from './Http';
 
 const Checkout = () => {
      const [paymentMethod, setPaymentMethod] = useState('cod');
      const { cartData, grandTotal, subTotal, shipping } = useContext(CartContext);
+     const navigate = useNavigate();
 
      const handlePaymentMethod = (e) => {
           setPaymentMethod(e.target.value)
@@ -22,14 +23,12 @@ const Checkout = () => {
      } = useForm();
 
      const processOrder = (data) => {
-          // console.log(data);
           if (paymentMethod == 'cod') {
                saveOrder(data, 'not paid');
           }
      }
 
      const saveOrder = (formData, paymentStatus) => {
-          // console.log(cartData);
           const newFormData = {
                ...formData,
                grand_total: grandTotal(),
@@ -53,6 +52,13 @@ const Checkout = () => {
           .then(res => res.json())
           .then(result => {
                console.log(result);
+               if (result.status == 200) {
+                    localStorage.removeItem('cart');
+                    toast.success(result.message || 'Order placed successfully');
+                    navigate(`/order/confirmation/${result.id}`);
+               } else {
+                    toast.error(result.message || 'Failed to place order');
+               }
           })
      }
 
@@ -198,9 +204,9 @@ const Checkout = () => {
                                    <table className="table">
                                         <tbody>
                                              {
-                                                  cartData && cartData.map((item, index) => {
+                                                  cartData && cartData.map((item) => {
                                                        return(                                                                                         
-                                                            <tr key={index}>
+                                                            <tr key={`cart-${item.id}`}>
                                                                  <td width={100}>
                                                                       <img src={item.image_url} width={80} />
                                                                  </td>
@@ -242,10 +248,10 @@ const Checkout = () => {
                                    <div className="payment">
                                         <h3 className="border-bottom mt-4 pb-3"><strong>Payment Method</strong></h3>
                                         <div className=''>
-                                             <input className='' type="radio" onClick={handlePaymentMethod} checked={paymentMethod == 'stripe'} value={'stripe'} name="" id="" />
+                                             <input className='' type="radio" onClick={handlePaymentMethod} defaultChecked={paymentMethod == 'stripe'} value={'stripe'} name="" id="" />
                                              <label htmlFor="" className='form-label ps-2'>Stripe</label>
 
-                                             <input className='ms-3' type="radio" onClick={handlePaymentMethod} checked={paymentMethod == 'cod'} value={'cod'} name="" id="" />
+                                             <input className='ms-3' type="radio" onClick={handlePaymentMethod} defaultChecked={paymentMethod == 'cod'} value={'cod'} name="" id="" />
                                              <label htmlFor="" className='form-label ps-2'>COD</label>
                                         </div>                                   
                                         <div className="d-flex justify-content-start py-3">

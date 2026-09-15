@@ -35,6 +35,7 @@ Route::group(['middleware'=>['auth:sanctum']], function(){
 
 // User Routes
 Route::group(['middleware'=>['auth:sanctum','checkUserRole']], function(){
+    Route::get('dashboard',[DashboardController::class,'index']);
     Route::post('save-order',[OrderController::class,'saveOrder']);
 });
 
